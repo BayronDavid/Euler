@@ -518,16 +518,20 @@ var eventBindType = supportsPassive ? { passive: true } : false;
 // const camera = new THREE.OrthographicCamera(window.innerWidth / - 2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / - 2, 0.1, 1000);
 // ------------------------------------------------------------____________________________________________________
 
+container = document.getElementById('canvas');
+
+var canvasWidth   = container.offsetWidth;
+var canvasHeight  = container.offsetHeight;
+
 var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+// var camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+var camera = new THREE.PerspectiveCamera(50, canvasWidth / canvasHeight, 0.1, 1000);
 camera.position.z = 50;
-
 var renderer = new THREE.WebGLRenderer({ antialias: true, alpha: 1 });
+renderer.setSize(canvasWidth, canvasHeight);
+container.appendChild(renderer.domElement);
 
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
-
-var controls = new THREE.TrackballControls(camera, document.body);
+var controls = new THREE.TrackballControls(camera, container);
 
 // Grid
 const gridHelper = new THREE.GridHelper(1000, 40);
@@ -535,7 +539,7 @@ gridHelper.rotation.x = Math.PI / 2;
 scene.add(gridHelper);
 // scene.add(axesHelper);
 const vertices = [];
-const verticesEuler = [];
+var verticesEuler = [];
 
 // AXis 
 const arrowHelperY = new THREE.ArrowHelper(new THREE.Vector3(0, 1, 0).normalize(), new THREE.Vector3(0, 0, 0), 500, new THREE.Color('green'));
@@ -543,23 +547,34 @@ const arrowHelperX = new THREE.ArrowHelper(new THREE.Vector3(1, 0, 0).normalize(
 scene.add(arrowHelperX);
 scene.add(arrowHelperY);
 
-
-
-
 // Solucion exacta
-for (let x = 3; x < 10; x += 0.5) {
+for (let x = 3; x < 11; x += 0.5) {
   const y = (Math.pow(x, 3) / 3) - ((3 * Math.pow(x, 2)) / 2) + (5 * x) - (19 / 2);
   vertices.push(new THREE.Vector3(x, y, 0));
 }
 
 // Aproximaciones con euler
-let x0 = 1;
-let h = 1;
-for (let x = 3; x < 10; x += h) {
-  const y = x0 + h * (x ^ 2 - (3 * x) + 5);
-  x0 = y;
-  verticesEuler.push(new THREE.Vector3(x, -y, 0));
+const geometryBlackLine = new THREE.BufferGeometry();
+const geometryEulerPoints = new THREE.BufferGeometry();
+// const geometryBlackLine = new THREE.BufferGeometry().setFromPoints(verticesEuler)
+// const geometryEulerPoints = new THREE.BufferGeometry().setFromPoints(verticesEuler)
+
+function calculateEuler(h_, x0_) {
+  verticesEuler = [];
+  h = h_ || 1;
+  x0 = x0_ || 1;
+  for (let x = 3; x < 11; x+=h) {
+    const y = x0 + h * (x ^ 2 - (3 * x) + 5);
+    x0 = y;
+    verticesEuler.push(new THREE.Vector3(x, -y, 0));
+  }
+  geometryBlackLine.setFromPoints(verticesEuler);
+  geometryEulerPoints.setFromPoints(verticesEuler);
 }
+
+
+
+calculateEuler();
 
 const geometryBlueLine = new THREE.BufferGeometry().setFromPoints(vertices)
 const materialBlueLine = new THREE.LineBasicMaterial({ color: 'blue' });
@@ -567,10 +582,8 @@ const materialBlueLine = new THREE.LineBasicMaterial({ color: 'blue' });
 const geometryWhitePoints = new THREE.BufferGeometry().setFromPoints(vertices)
 const materialWhitePoints = new THREE.PointsMaterial({ color: 'yellow' });
 
-const geometryBlackLine = new THREE.BufferGeometry().setFromPoints(verticesEuler)
 const materialBlackLine = new THREE.LineBasicMaterial({ color: 'black' });
 
-const geometryEulerPoints = new THREE.BufferGeometry().setFromPoints(verticesEuler)
 const materialRedPoints = new THREE.PointsMaterial({ color: 'red' });
 
 // Solucion exacta 
@@ -587,70 +600,22 @@ scene.add(lineBlue);
 scene.add(lineBlack)
 scene.add(pointsEuler);
 
+var rangeOfH = document.getElementById('rangeOfH'); 
+var numberForRangeOfH = document.getElementById('numberForRangeOfH'); 
 
+rangeOfH.oninput = function(event){
+   calculateEuler(parseFloat(rangeOfH.value));
+  numberForRangeOfH.value = parseFloat(rangeOfH.value);
+}
+numberForRangeOfH.oninput = function(event){
+  calculateEuler(parseFloat(numberForRangeOfH.value));
+  rangeOfH.value = parseFloat(numberForRangeOfH.value);
+}
 
-// var options = {
-//   variacion   : 0,
-//   x0  : 0
-// };
-
-// var gui = new dat.GUI();
-// var datGuiEuler = gui.addFolder('Options');
-
-// datGuiEuler.add(options, 'variacion', 1, 10).listen();
-// datGuiEuler.open();
-
-
-
-var options = {
-  velx: 0,
-  vely: 0,
-  camera: {
-    speed: 0.0001
-  },
-  stop: function () {
-    this.velx = 0;
-    this.vely = 0;
-  },
-  reset: function () {
-    this.velx = 0.1;
-    this.vely = 0.1;
-    camera.position.z = 75;
-    camera.position.x = 0;
-    camera.position.y = 0;
-    cube.scale.x = 1;
-    cube.scale.y = 1;
-    cube.scale.z = 1;
-    cube.material.wireframe = true;
-  }
-};
-
-// DAT.GUI Related Stuff
-
-var gui = new dat.GUI();
-
-var cam = gui.addFolder('Camera');
-cam.add(options.camera, 'speed', 0, 0.0010).listen();
-cam.add(camera.position, 'y', 0, 100).listen();
-cam.open();
-
-var velocity = gui.addFolder('Velocity');
-velocity.add(options, 'velx', -0.2, 0.2).name('X').listen();
-velocity.add(options, 'vely', -0.2, 0.2).name('Y').listen();
-velocity.open();
-
-
-
-
-
-
-
-
-
-
-
-// main
 function animate() {
+  canvasWidth   = container.offsetWidth;
+  canvasHeight  = container.offsetHeight;
+
   requestAnimationFrame(animate);
   renderer.render(scene, camera);
   controls.update();

@@ -3,22 +3,38 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Simulacion Euler</title>
-  <link rel="stylesheet" href="./style.css">
-
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Document</title>
 </head>
 
 <body>
+  <div class="container">
+    <div class="graphic item" id="canvas"></div>
+    <div class="controllers item">
+      <div class="rangeOfH controllersItem">
+        <label for="rangeOfH">H</label>
+        <!-- <input type="range" id="rangeOfH" value="1" max="5" min="0.01" step="0.01"> -->
+        <!-- <input type="number" max="5" min="0.01" step="0.01" > -->
+        
+      </div>
+      <div class="controllersItem">
+        <label for="rangeOfH">H</label>
+          <input type="range"  id="rangeOfH" value="1" max="5" min="0.01" step="0.01" />
+          <input type="number" id="numberForRangeOfH" value="1" max="5" min="0.01" step="0.01"/>
 
-  <!-- dat Gui controls -->
-
-
-  <!-- Three js -->
+      </div>
+      <div class="controllersItem">asd</div>
+    </div>
+    <div class="item footer">Byron David Morales</div>
+  </div>
+  <!-- Three.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"
     integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <!-- Dat gui -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.5/dat.gui.min.js"></script>
+  <!-- Mathjs -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.1.1/math.js" integrity="sha512-0MC8WeRWoyA1u5N3ssCsJDSbNfw3bjF65BIQ3UTPs9nwaV0fy+JN3FH9PQmYACZOEkQFhUvEP+jIqwOlBjEM9w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <!-- Script.js -->
   <script src="./script.js"></script>
 </body>
