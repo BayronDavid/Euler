@@ -13,22 +13,53 @@
   <div class="container">
     <div class="graphic item" id="canvas"></div>
     <div class="controllers item">
-      <div class="rangeOfH controllersItem">
-        <label for="rangeOfH">H</label>
-        <!-- <input type="range" id="rangeOfH" value="1" max="5" min="0.01" step="0.01"> -->
-        <!-- <input type="number" max="5" min="0.01" step="0.01" > -->
-        
+      <div class="entradas controllersItem">
+        <div class="inputs fx">
+            <label for="fx">f(x, y)</label>
+            <input type="text" id="fx" value="x/y" placeholder="Ecuacion" onclick="this.select()" >
+        </div>
+        <div class="inputs x0">
+            <label for="x0">X0</label>
+            <input type="number" id="x0" value="1" placeholder="X inicial" onclick="this.select()" >
+        </div>
+        <div class="inputs Y0">
+            <label for="Y0">Y0</label>
+            <input type="number" id="Y0" value="2" placeholder="Y inicial" onclick="this.select()" >
+        </div>
+        <div class="inputs h">
+            <label for="h">h</label>
+            <input type="number" id="h" value="0.5" placeholder="Y inicial" onclick="this.select()" >
+        </div>
+        <div class="inputs labels">
+          <label for="xmin">X min</label>
+          <label for="xmax">X max</label>
+        </div>
+        <div class="rango">
+          <input type="number" id="xmin" value="0" placeholder="Y inicial" onclick="this.select()">
+          <input type="number" id="xmax" value="1" placeholder="Y inicial" onclick="this.select()">
+        </div>
+        <div class="inputs">
+          <label for="rangeOfH">H</label>
+          <input type="range" id="rangeOfH" value="1" max="1" min="0.01" step="0.01" />
+          <input type="number" id="numberForRangeOfH" value="1" max="1" min="0.01" step="0.01" />
+        </div>
+        <div class="inputs solExct ">
+          <label for="xmin">Sol Ex</label>
+          <input type="text" value="-x -1 + 2*exp(x)" >
+        </div>
+        <button onclick="calcular()" >Calcular</button>
       </div>
-      <div class="controllersItem">
-        <label for="rangeOfH">H</label>
-          <input type="range"  id="rangeOfH" value="1" max="5" min="0.01" step="0.01" />
-          <input type="number" id="numberForRangeOfH" value="1" max="5" min="0.01" step="0.01"/>
-
+      <div class="entradas" id="errorGraph" >
       </div>
-      <div class="controllersItem">asd</div>
     </div>
     <div class="item footer">Byron David Morales</div>
   </div>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({   displayAlign: "left", }); </script>
+  <!-- Nerdamer  mathLibrary -->
+  <script src="../libs/nerdamer-master/nerdamer.core.js"></script>
+  <!-- All modules  -->
+  <script src="../libs/nerdamer-master/Calculus.js"></script>
   <!-- Three.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"
     integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ=="
@@ -37,6 +68,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.1.1/math.js" integrity="sha512-0MC8WeRWoyA1u5N3ssCsJDSbNfw3bjF65BIQ3UTPs9nwaV0fy+JN3FH9PQmYACZOEkQFhUvEP+jIqwOlBjEM9w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <!-- Script.js -->
   <script src="./script.js"></script>
+  <script src="./calculus.js"></script>
 </body>
 
 </html>

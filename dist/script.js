@@ -512,19 +512,13 @@ try {
 
 var eventBindType = supportsPassive ? { passive: true } : false;
 
-/**
-* Scene
-**/
-// const camera = new THREE.OrthographicCamera(window.innerWidth / - 2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / - 2, 0.1, 1000);
-// ------------------------------------------------------------____________________________________________________
-
+// --------------------------------------------------------------------------------------------------------------------------------------
 container = document.getElementById('canvas');
 
 var canvasWidth   = container.offsetWidth;
 var canvasHeight  = container.offsetHeight;
 
 var scene = new THREE.Scene();
-// var camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
 var camera = new THREE.PerspectiveCamera(50, canvasWidth / canvasHeight, 0.1, 1000);
 camera.position.z = 50;
 var renderer = new THREE.WebGLRenderer({ antialias: true, alpha: 1 });
@@ -534,7 +528,7 @@ container.appendChild(renderer.domElement);
 var controls = new THREE.TrackballControls(camera, container);
 
 // Grid
-const gridHelper = new THREE.GridHelper(1000, 40);
+const gridHelper = new THREE.GridHelper(1000, 500);
 gridHelper.rotation.x = Math.PI / 2;
 scene.add(gridHelper);
 // scene.add(axesHelper);
@@ -548,33 +542,33 @@ scene.add(arrowHelperX);
 scene.add(arrowHelperY);
 
 // Solucion exacta
-for (let x = 3; x < 11; x += 0.5) {
-  const y = (Math.pow(x, 3) / 3) - ((3 * Math.pow(x, 2)) / 2) + (5 * x) - (19 / 2);
-  vertices.push(new THREE.Vector3(x, y, 0));
+for (let x = 0; x < 1; x += 0.01) {
+  // const y = (Math.pow(x, 3) / 3) - ((3 * Math.pow(x, 2)) / 2) + (5 * x) - (19 / 2);
+  const y = -x -1 + 2*Math.exp(x);
+  vertices.push(new THREE.Vector3(x*10, y*10, 0));
 }
 
 // Aproximaciones con euler
 const geometryBlackLine = new THREE.BufferGeometry();
 const geometryEulerPoints = new THREE.BufferGeometry();
-// const geometryBlackLine = new THREE.BufferGeometry().setFromPoints(verticesEuler)
-// const geometryEulerPoints = new THREE.BufferGeometry().setFromPoints(verticesEuler)
 
-function calculateEuler(h_, x0_) {
+function calculateEuler(h_, x0_, y_) {
   verticesEuler = [];
-  h = h_ || 1;
-  x0 = x0_ || 1;
-  for (let x = 3; x < 11; x+=h) {
-    const y = x0 + h * (x ^ 2 - (3 * x) + 5);
-    x0 = y;
-    verticesEuler.push(new THREE.Vector3(x, -y, 0));
-  }
+  h   = h_  || 0.1;
+  x0  = x0_ || 0;
+  y   = y_  || 1;
+  verticesEuler.push(new THREE.Vector3(x0*10, y*10, 0));
+
+  for (let x = 0; x < 1; x+=h) {
+    // y = y + h * (x0 ^ 2 - (3 * x0) + 5);
+    y = y + h * (x0+y);
+    x0 = x0+h;
+    verticesEuler.push(new THREE.Vector3(x*10, y*10, 0));
+    }
   geometryBlackLine.setFromPoints(verticesEuler);
   geometryEulerPoints.setFromPoints(verticesEuler);
 }
 
-
-
-calculateEuler();
 
 const geometryBlueLine = new THREE.BufferGeometry().setFromPoints(vertices)
 const materialBlueLine = new THREE.LineBasicMaterial({ color: 'blue' });
@@ -612,6 +606,17 @@ numberForRangeOfH.oninput = function(event){
   rangeOfH.value = parseFloat(numberForRangeOfH.value);
 }
 
+function calcular(){
+  for (let x = 0; x < 1; x += 0.01) {
+    // const y = (Math.pow(x, 3) / 3) - ((3 * Math.pow(x, 2)) / 2) + (5 * x) - (19 / 2);
+    const y = -x - 1 + 2 * Math.exp(x);
+    vertices.push(new THREE.Vector3(x * 10, y * 10, 0));
+  }
+  calculateEuler();
+}
+
+calcular()
+
 function animate() {
   canvasWidth   = container.offsetWidth;
   canvasHeight  = container.offsetHeight;
@@ -621,3 +626,8 @@ function animate() {
   controls.update();
 }
 animate();
+
+
+
+// ChangePwd@10081999
+// CahngePwd@10081999
