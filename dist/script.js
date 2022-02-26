@@ -6,6 +6,8 @@
  * @modified by Cello / http://milletforall.com
  */
 
+
+
 THREE.TrackballControls = function (object, domElement) {
 
   var _this = window.inner = this;
@@ -542,33 +544,52 @@ scene.add(arrowHelperX);
 scene.add(arrowHelperY);
 
 // Solucion exacta
-for (let x = 0; x < 1; x += 0.01) {
-  // const y = (Math.pow(x, 3) / 3) - ((3 * Math.pow(x, 2)) / 2) + (5 * x) - (19 / 2);
-  const y = -x -1 + 2*Math.exp(x);
-  vertices.push(new THREE.Vector3(x*10, y*10, 0));
+function EulerExacto(h_){
+  h = h_ || 0.01;
+  for (let x = 0; x < 4; x += h) {
+    const y = -0.5*Math.pow(x,4)  + 4*Math.pow(x,3) - 10*Math.pow(x, 2) + 8.5*x + 1;
+    vertices.push(new THREE.Vector3(x*10, y*10, 0));
+  }
+  return vertices;
 }
+
+EulerExacto(0.01);
 
 // Aproximaciones con euler
 const geometryBlackLine = new THREE.BufferGeometry();
 const geometryEulerPoints = new THREE.BufferGeometry();
 
+
 function calculateEuler(h_, x0_, y_) {
   verticesEuler = [];
-  h   = h_  || 0.1;
+  h   = h_  || 0.5;
   x0  = x0_ || 0;
   y   = y_  || 1;
+
   verticesEuler.push(new THREE.Vector3(x0*10, y*10, 0));
 
-  for (let x = 0; x < 1; x+=h) {
-    // y = y + h * (x0 ^ 2 - (3 * x0) + 5);
-    y = y + h * (x0+y);
-    x0 = x0+h;
+  for (let x = x0; x < 4; ) {
+    y = y + h * (-2*Math.pow(x,3) + 12*Math.pow(x,2)  - 20*x  + 8.5);
+    x = x+h;
     verticesEuler.push(new THREE.Vector3(x*10, y*10, 0));
-    }
+  }
   geometryBlackLine.setFromPoints(verticesEuler);
   geometryEulerPoints.setFromPoints(verticesEuler);
+  return verticesEuler;
 }
 
+function calcularErrorEuler(h){
+  let euler = calculateEuler(h);
+  let exact = EulerExacto(h);
+  let error = [];
+  lo
+  for (let i=0; i>euler.length; i++){
+    console.log(euler[i].x, exact[i].x);
+  }
+  
+}
+
+// calcularErrorEuler(0.05);
 
 const geometryBlueLine = new THREE.BufferGeometry().setFromPoints(vertices)
 const materialBlueLine = new THREE.LineBasicMaterial({ color: 'blue' });
@@ -590,9 +611,9 @@ const pointsEuler = new THREE.Points(geometryEulerPoints, materialRedPoints);
 
 // scene.add(whitePoints);
 scene.add(lineBlue);
-
 scene.add(lineBlack)
 scene.add(pointsEuler);
+
 
 var rangeOfH = document.getElementById('rangeOfH'); 
 var numberForRangeOfH = document.getElementById('numberForRangeOfH'); 
@@ -606,16 +627,7 @@ numberForRangeOfH.oninput = function(event){
   rangeOfH.value = parseFloat(numberForRangeOfH.value);
 }
 
-function calcular(){
-  for (let x = 0; x < 1; x += 0.01) {
-    // const y = (Math.pow(x, 3) / 3) - ((3 * Math.pow(x, 2)) / 2) + (5 * x) - (19 / 2);
-    const y = -x - 1 + 2 * Math.exp(x);
-    vertices.push(new THREE.Vector3(x * 10, y * 10, 0));
-  }
-  calculateEuler();
-}
-
-calcular()
+calculateEuler();
 
 function animate() {
   canvasWidth   = container.offsetWidth;
@@ -628,6 +640,3 @@ function animate() {
 animate();
 
 
-
-// ChangePwd@10081999
-// CahngePwd@10081999
