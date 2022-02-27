@@ -15,24 +15,20 @@
     <div class="controllers item">
       <div class="entradas controllersItem">
         <div class="inputs fx">
-            <label for="fx">f(x, y)</label>
-            <input type="text" id="fx" value="2x^3+12x^2-20x+8.5" placeholder="Ecuacion" onclick="this.select()" >
+            <label for="fxy">f(x, y)</label>
+            <input type="text" id="fxy" value="-2x^3+12x^2-20x+8.5" placeholder="Ecuacion" onclick="this.select()" >
         </div>
         <div class="inputs x0">
             <label for="x0">X0</label>
-            <input type="number" id="x0" value="1" placeholder="X inicial" onclick="this.select()" >
+            <input type="number" id="x0" value="0" placeholder="X inicial" onclick="this.select()" >
         </div>
         <div class="inputs Y0">
-            <label for="Y0">Y0</label>
-            <input type="number" id="Y0" value="2" placeholder="Y inicial" onclick="this.select()" >
+          <label for="y0">Y0</label>
+          <input type="number" id="y0" value="1" placeholder="Y inicial" onclick="this.select()" >
         </div>
-        <div class="inputs labels">
-          <label for="xmin">X min</label>
-          <label for="xmax">X max</label>
-        </div>
-        <div class="rango">
-          <input type="number" id="xmin" value="0" placeholder="Y inicial" onclick="this.select()">
-          <input type="number" id="xmax" value="1" placeholder="Y inicial" onclick="this.select()">
+        <div class="inputs x0">
+            <label for="xf">Xf</label>
+            <input type="number" id="xf" value="4" placeholder="X Final" onclick="this.select()" >
         </div>
         <div class="inputs">
           <label for="rangeOfH">h</label>
@@ -40,30 +36,44 @@
           <input type="number" id="numberForRangeOfH" value="0.2" max="1" min="0.01" step="0.01" />
         </div>
         <div class="inputs solExct ">
-          <label for="xmin">Sol Ex</label>
-          <input type="text" value="-x -1 + 2*exp(x)" >
+          <label for="exactSolution">Sol Ex</label>
+          <input type="text" id="exactSolution" value="-0.5x^4+4x^3-10x^2+8.5x+1" >
         </div>
-        <button onclick="calcular()" >Calcular</button>
+        <button id="btnCalculate" >Calcular</button>
       </div>
       <div class="entradas" id="errorGraph" >
       </div>
     </div>
     <div class="item footer">Byron David Morales</div>
   </div>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'></script>
-<script type="text/x-mathjax-config"> MathJax.Hub.Config({   displayAlign: "left", }); </script>
+
   <!-- Nerdamer  mathLibrary -->
-  <script src="../libs/nerdamer-master/nerdamer.core.js"></script>
+    <script src="../libs/nerdamer-master/nerdamer.core.js"></script>
   <!-- All modules  -->
-  <script src="../libs/nerdamer-master/Calculus.js"></script>
+    <script src="../libs/nerdamer-master/Calculus.js"></script>
   <!-- Three.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"
     integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <!-- Mathjs -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.1.1/math.js" integrity="sha512-0MC8WeRWoyA1u5N3ssCsJDSbNfw3bjF65BIQ3UTPs9nwaV0fy+JN3FH9PQmYACZOEkQFhUvEP+jIqwOlBjEM9w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <!-- Script.js -->
-  <script src="./script.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.1.1/math.js" integrity="sha512-0MC8WeRWoyA1u5N3ssCsJDSbNfw3bjF65BIQ3UTPs9nwaV0fy+JN3FH9PQmYACZOEkQFhUvEP+jIqwOlBjEM9w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <!-- Scripts.js -->
+
+    <!-- Scene -->
+    <script src="./scene/controls.js"></script>
+    <script src="./scene/mainScene.js" type="module"></script>
+    <script src="./scene/errorScene.js" type="module"></script>
+
+    <!-- Calculus -->
+    <script src="./calculus/Exact/index.js" type="module"></script>
+    <script src="./calculus/Euler/index.js" type="module"></script>
+    <script src="./calculus/Euler/calculateError.js" type="module"></script>
+
+    <!--Events-->
+    <!-- Euler -->
+    <script src="./events/Euler/inputs.js" type="module"></script> 
+
   <script src="./calculus.js"></script>
   <script src="./error.js" type="module"></script>
   <!-- Scripts > Methods -->
