@@ -1,15 +1,17 @@
 var verticesEuler = [];
-
+    verticesEuler.push()
 // Geometry - it's the same for lines and points
 const geometry = new THREE.BufferGeometry();
 
-function calculateEulerApproach(h_, x0_, y_, xf_, fxy_) {
+function calculateEulerApproach(h_, x0_, y_, xf_, fxy_, graph_) {
     verticesEuler = [];
+    let graph = graph_  || true;
     let h   =   h_      || 0.2;
     let x0  =   x0_     || 0;
     let y   =   y_      || 1;
     let xf  =   xf_     || 4;
     let fxy =   fxy_    || '-2x^3+12x^2-20x+8.5';
+
     verticesEuler.push(new THREE.Vector3(x0 * 10, y * 10, 0));
 
     for (let x = x0; x < xf;) {
@@ -18,7 +20,10 @@ function calculateEulerApproach(h_, x0_, y_, xf_, fxy_) {
         verticesEuler.push(new THREE.Vector3(x * 10, y * 10, 0));
     }
     // Add points to the geometry
-    geometry.setFromPoints(verticesEuler)
+    if(graph){
+        geometry.setFromPoints(verticesEuler)
+    }
+    // graph ? geometry.setFromPoints(verticesEuler) : geometry.setFromPoints(new THREE.Vector3(0, 0, 0));
     return verticesEuler;
 }
 

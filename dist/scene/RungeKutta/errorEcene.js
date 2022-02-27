@@ -1,4 +1,5 @@
-import { lineBlueError} from "../calculus/Euler/calculateError.js"
+import { blueLineError, redLineRelativeError, pointsRungeKutta,  error, relativeError } from "../../calculus/rungeKutta/error.js"
+
 
 var graphContainer = document.getElementById('errorGraph');
 
@@ -16,7 +17,7 @@ graphContainer.appendChild(GraphRenderer.domElement);
 var graphControls = new THREE.TrackballControls(cameraGraph, graphContainer);
 
 // Grid
-const gridHelperGRAPH = new THREE.GridHelper(1000, 50);
+const gridHelperGRAPH = new THREE.GridHelper(1000, 100);
 gridHelperGRAPH.rotation.x = Math.PI / 2;
 sceneGraph.add(gridHelperGRAPH);
 
@@ -26,7 +27,11 @@ const arrowHelperXGRAPH = new THREE.ArrowHelper(new THREE.Vector3(1, 0, 0).norma
 sceneGraph.add(arrowHelperXGRAPH);
 sceneGraph.add(arrowHelperYGRAPH);
 
-sceneGraph.add(lineBlueError)
+sceneGraph.add(blueLineError)
+sceneGraph.add(redLineRelativeError)
+sceneGraph.add(pointsRungeKutta)
+
+
 
 function GraphAnimate() {
     graphWidth = graphContainer.offsetWidth;

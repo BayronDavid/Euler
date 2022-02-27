@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+    <title>Runge Kutta</title>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Main graph -->
+        <div class="graphic item" id="canvas">
+            <div id="labels"></div>
+            <div id="info">
+            <a href="../index.html"> Volver al menu principal</a>
+                <div class="method">
+                    <h3>Metodo de Ruge Kutta</h3>
+                </div>
+                <div class="expressions">
+                    <div id="initial">
+                    </div>
+                    <div id="resolved">
+                    </div>
+                </div>
+                <br>
+                <div class="itemLegend">
+                    <div class="blue boxlegend"></div>
+                    <p>Solucion Real</p>
+                </div>
+                <div class="itemLegend">
+                    <div class="black boxlegend">
+                        <div class="red"></div>
+                    </div>
+                    <p>Aproximacion por el metodo de Runge Kutta</p>
+                </div>
+            </div>
+        </div>
+        <!-- Controls and inputs  -->
+        <div class="controllers item">
+            <div class="entradas ">
+                <div class="controllersItem">
+                    <div class="inputs fx">
+                        <label for="fxy">f(x, y)</label>
+                        <input type="text" id="fxy" value="-2x^3+12x^2-20x+8.5" placeholder="Ecuacion"
+                            onclick="this.select()">
+                    </div>
+                    <div class="inputs x0 ">
+                        <label for="x0">X0</label>
+                        <input class="short" type="number" id="x0" value="0" placeholder="X inicial"
+                            onclick="this.select()">
+                    </div>
+                    <div class="inputs Y0 ">
+                        <label for="y0">Y0</label>
+                        <input class="short" type="number" id="y0" value="1" placeholder="Y inicial"
+                            onclick="this.select()">
+                    </div>
+                    <div class="inputs x0 ">
+                        <label for="xf">Xf</label>
+                        <input class="short" type="number" id="xf" value="4" placeholder="X Final"
+                            onclick="this.select()">
+                    </div>
+                    <div class="inputs">
+                        <label for="rangeOfH">h</label>
+                        <input type="range" id="rangeOfH" value="0.2" max="1" min="0.01" step="0.01" />
+                        <input type="number" id="numberForRangeOfH" value="0.2" max="1" min="0.01" step="0.01" />
+                    </div>
+                    <div class="inputs solExct ">
+                        <label for="exactSolution">Sol Ex</label>
+                        <input type="text" id="exactSolution" value="-0.5x^4+4x^3-10x^2+8.5x+1">
+                    </div>
+                    <button id="btnCalculate"><b>Calcular</b></button>
+                </div>
+            </div>
+            <!-- Graph error -->
+            <div class="entradas" id="errorGraph">
+                <div id="info">
+                    <div class="itemLegend">
+                        <div class="orange boxlegend"></div>
+                        <p>Error</p>
+                    </div>
+                    <div class="itemLegend">
+                        <div class="blackError boxlegend">
+                        </div>
+                        <p>Error Relativo *10</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="item footer">Byron David Morales</div>
+    </div>
+
+    <!-- Nerdamer  mathLibrary -->
+    <script src="../libs/nerdamer-master/nerdamer.core.js"></script>
+    <!-- All modules  -->
+    <script src="../libs/nerdamer-master/Calculus.js"></script>
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"
+        integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Mathjs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.1.1/math.js"
+        integrity="sha512-0MC8WeRWoyA1u5N3ssCsJDSbNfw3bjF65BIQ3UTPs9nwaV0fy+JN3FH9PQmYACZOEkQFhUvEP+jIqwOlBjEM9w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Scripts.js -->
+
+    <!-- Scene -->
+    <script src="./scene/controls.js"></script>
+    <script src="./scene/RungeKutta/mainScene.js" type="module"></script>
+    <script src="./scene/RungeKutta/errorEcene.js" type="module"></script>
+
+    <!-- Calculus -->
+    <script src="./calculus/Exact/index.js" type="module"></script>
+    <script src="./calculus/rungeKutta/index.js" type="module"></script>
+    <script src="./calculus/rungeKutta/error.js" type="module"></script>
+
+    <!--Events-->
+    <!-- RungeKutta -->
+    <script src="./events/RungeKutta/inputs.js" type="module"></script>
+
+</body>
+
+</html>

@@ -1,5 +1,6 @@
-import { lineBlueExactSolution, calculateExactSolution} from '../calculus/Exact/index.js'
-import { calculateEulerApproach, blackLineEuler, pointsEuler} from '../calculus/Euler/index.js'
+import { lineBlueExactSolution, calculateExactSolution} from '../../calculus/Exact/index.js'
+import { calculateEulerApproach, blackLineEuler, pointsEuler} from '../../calculus/Euler/index.js'
+
 var     container = document.getElementById('canvas');
 
 var     canvasWidth = container.offsetWidth;
@@ -33,6 +34,9 @@ scene.add(lineBlueExactSolution);
 // Add Euler approach curve and points
 scene.add(blackLineEuler)
 scene.add(pointsEuler)
+
+
+
 
 
 function animate() {
