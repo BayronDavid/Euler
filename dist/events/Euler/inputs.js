@@ -11,6 +11,11 @@ var x0          = document.getElementById('x0');
 var y0          = document.getElementById('y0');
 var xf          = document.getElementById('xf');
 
+// Tables
+var containerTable = document.getElementById('table');
+var table   = document.createElement("table");
+var tblBody = document.createElement("tbody");
+
 var initialExpression = document.getElementById('initial');
 initialExpression.innerHTML = `<p>Ecuacion inicial</p>
                                 <p>\\(${nerdamer(fxy.value).toTeX()}\\)</p>`
@@ -32,6 +37,7 @@ numberForRangeOfH.oninput = function (event) {
     calculateEulerApproach(parseFloat(h));
     calculateError()
     rangeOfH.value = parseFloat(h);
+
 }
 
 btnCalculate.onclick = ()=>{
@@ -49,5 +55,8 @@ export{
     x0,
     y0,
     xf,
-    h
+    h,
+    containerTable,
+    table,
+    tblBody
 }
