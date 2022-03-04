@@ -1,6 +1,6 @@
-import { calculateRungeKuttaApproach } from "./index.js"
+import { calculateHeunApproach } from "./index.js"
 import { calculateExactSolution } from "../Exact/index.js"
-import * as inputs from "../../events/RungeKutta/inputs.js"
+import * as inputs from "../../events/Heun/inputs.js"
 
 // Geometry
 const geometryError = new THREE.BufferGeometry()
@@ -9,7 +9,6 @@ let error = []
 let relativeError = []
 let auxr = []
 
-// function calculateRungeKuttaApproach(x_, xf_, y_, h_)
 function calculateError() {
     error = []
     relativeError = []
@@ -41,7 +40,7 @@ function calculateError() {
 
     x.appendChild(document.createTextNode('x'))
     headExact.appendChild(document.createTextNode('Exact'))
-    headEuler.appendChild(document.createTextNode('Runge Kutta'))
+    headEuler.appendChild(document.createTextNode('Heun'))
     re.appendChild(document.createTextNode('Error Relativo'))
 
 
@@ -54,7 +53,7 @@ function calculateError() {
 
     let pos = 0;
 
-    let rungeKutta = calculateRungeKuttaApproach(x0_, xf_, y0_, h_, false);
+    let heun = calculateHeunApproach(x0_, xf_, y0_, h_, false);
     let exact = calculateExactSolution(h_, x0_, y0_, xf_, inputs.exactFxy.value, false);
     let e, eR;
 
@@ -70,13 +69,13 @@ function calculateError() {
         celdaExact.appendChild(textoceldaExact);
 
         var celdaEuler = document.createElement("td");
-        var textoceldaEuler = document.createTextNode((rungeKutta[pos].y/10).toFixed(3))
+        var textoceldaEuler = document.createTextNode((heun[pos].y/10).toFixed(3))
         celdaEuler.appendChild(textoceldaEuler);
 
-        e = Math.abs(((rungeKutta[pos].y) - (exact[pos].y)));
+        e = Math.abs(((heun[pos].y) - (exact[pos].y)));
         error.push(new THREE.Vector3(i*10, e*1000, 0));
 
-        eR = Math.abs(((rungeKutta[pos].y) - (exact[pos].y)) / Math.abs(exact[pos].y));
+        eR = Math.abs(((heun[pos].y) - (exact[pos].y)) / Math.abs(exact[pos].y));
         relativeError.push(new THREE.Vector3(i*10, eR*1000, 0));
 
                        
@@ -110,13 +109,11 @@ const blueLineError = new THREE.Line(geometryError, materialRedLine);
 const redLineRelativeError = new THREE.Line(geometryRelativeError, materialBlueLine);
 
 const materialRedPoints = new THREE.PointsMaterial({ color: 'black' });
-const pointsRungeKutta = new THREE.Points(geometryError, materialRedPoints);
 
 export {
     blueLineError,
     redLineRelativeError,
     calculateError,
-    pointsRungeKutta,
     relativeError,
     error
 }

@@ -7,7 +7,7 @@ var     canvasWidth = container.offsetWidth;
 var     canvasHeight = container.offsetHeight;
 
 var     scene = new THREE.Scene();
-var     camera = new THREE.PerspectiveCamera(50, canvasWidth / canvasHeight, 0.1, 1000);
+var     camera = new THREE.PerspectiveCamera(50, canvasWidth / canvasHeight, 0.1, 10000);
         camera.position.z = 50;
 var     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: 1 });
         renderer.setSize(canvasWidth, canvasHeight);
@@ -17,7 +17,7 @@ var     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: 1 });
 var     controls = new THREE.TrackballControls(camera, container);
 
 // Grid
-const   gridHelper = new THREE.GridHelper(1000, 100);
+const   gridHelper = new THREE.GridHelper(10000, 1000);
         gridHelper.rotation.x = Math.PI / 2;
         scene.add(gridHelper);
 

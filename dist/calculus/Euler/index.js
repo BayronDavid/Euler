@@ -10,14 +10,14 @@ function calculateEulerApproach(h_, x0_, y_, xf_, fxy_, graph_) {
     let x0  =   x0_     || 0;
     let y   =   y_      || 1;
     let xf  =   xf_     || 4;
-    let fxy =   fxy_    || '-2x^3+12x^2-20x+8.5';
+    let fxy =   fxy_    || '-125x+5x^3-(7x^2)/2 + 20';
 
-    verticesEuler.push(new THREE.Vector3(x0 * 10, y * 10, 0));
+    verticesEuler.push(new THREE.Vector3(x0 * 10, y / 10, 0));
 
     for (let x = x0; x < xf;) {
         y = y + h * nerdamer(fxy, { x: x }).text();
         x = x + h;
-        verticesEuler.push(new THREE.Vector3(x * 10, y * 10, 0));
+        verticesEuler.push(new THREE.Vector3(x * 10, y / 10, 0));
     }
     // Add points to the geometry
     if(graph){

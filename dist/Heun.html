@@ -11,7 +11,7 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
     </script>
-    <title>Runge Kutta</title>
+    <title>Heun</title>
     <link rel="icon" type="image/x-icon" href="../ico.png">
 </head>
 
@@ -23,7 +23,7 @@
             <div id="info">
             <a href="../index.html"> Volver al menu principal</a>
                 <div class="method">
-                    <h3>Metodo de Ruge Kutta</h3>
+                    <h3>Metodo de Euler mejorado</h3>
                 </div>
                 <div class="expressions">
                     <div id="initial">
@@ -52,8 +52,8 @@
                 <div class="controllersItem">
                     <div class="inputs fx">
                         <label for="fxy">f(x, y)</label>
-                        <input type="text" id="fxy" value="-5^3 +15x^2-7x" placeholder="Ecuacion"
-                            onclick="this.select()">
+                        <input type="text" id="fxy" value="-5^3 +15x^2-7x" placeholder="Ecuacion" onclick="this.select()">
+                        <!-- <input type="text" id="fxy" value="-2x^3+12x^2-20x+8.5" placeholder="Ecuacion" onclick="this.select()"> -->
                     </div>
                     <div class="inputs x0 ">
                         <label for="x0">X0</label>
@@ -78,6 +78,8 @@
                     <div class="inputs solExct ">
                         <label for="exactSolution">Sol Ex</label>
                         <input type="text" id="exactSolution" value="-125x+5x^3-(7x^2)/2 + 20">
+                         <!-- <input type="text" id="exactSolution" value="-0.5x^4+4x^3-10x^2+8.5x+1"> -->
+
                     </div>
                     <button id="btnCalculate"><b>Calcular</b></button>
                 </div>
@@ -120,17 +122,17 @@
 
     <!-- Scene -->
     <script src="./scene/controls.js"></script>
-    <script src="./scene/RungeKutta/mainScene.js" type="module"></script>
-    <script src="./scene/RungeKutta/errorEcene.js" type="module"></script>
+    <script src="./scene/Heun/mainScene.js" type="module"></script>
+    <script src="./scene/Heun/errorEcene.js" type="module"></script>
 
     <!-- Calculus -->
     <script src="./calculus/Exact/index.js" type="module"></script>
-    <script src="./calculus/rungeKutta/index.js" type="module"></script>
-    <script src="./calculus/rungeKutta/error.js" type="module"></script>
+    <script src="./calculus/Heun/index.js" type="module"></script>
+    <script src="./calculus/Heun/error.js" type="module"></script>
 
     <!--Events-->
-    <!-- RungeKutta -->
-    <script src="./events/RungeKutta/inputs.js" type="module"></script>
+    <!-- Heun -->
+    <script src="./events/Heun/inputs.js" type="module"></script>
 
 </body>
 

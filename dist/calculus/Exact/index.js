@@ -6,14 +6,14 @@ const geometry = new THREE.BufferGeometry()
 function calculateExactSolution(h_, x0_, y0_, xf_, fxy_, graph) {
     vertices = [];
     if(graph == null) {graph = true}
-    let h       = h_    || 0.01;
-    let fxy     = fxy_  || '-0.5x^4+4x^3-10x^2+8.5x+1'
-    let xf      = xf_   || 4
+    let h       = h_    || 0.2;
+    let fxy     = fxy_  || "-125x+5x^3-(7x^2)/2 + 20"
     let x0      = x0_   || 0
+    let xf      = xf_   || 4
 
-    for (let x = x0; x < xf; x += h) {
+    for (let x = x0; x < xf+h; x += h) {
         const y = nerdamer(fxy, { x: x }).text();
-        vertices.push(new THREE.Vector3(x * 10, y * 10, 0));
+        vertices.push(new THREE.Vector3(x * 10, y/10, 0));
     }
     if(graph){
         geometry.setFromPoints(vertices);

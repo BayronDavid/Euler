@@ -1,6 +1,5 @@
-import { blackLineRungeKutta, pointsRungeKutta, } from '../../calculus/rungeKutta/index.js'
 import { lineBlueExactSolution, calculateExactSolution } from '../../calculus/Exact/index.js'
-import { blueLineError, redLineRelativeError, error, relativeError } from "../../calculus/rungeKutta/error.js"
+import {blackLineHeun, pointsHeun} from '../../calculus/Heun/index.js'
 
 
 var container = document.getElementById('canvas');
@@ -34,8 +33,8 @@ scene.add(arrowHelperY);
 // Add exact solution curve
 scene.add(lineBlueExactSolution);
 // Add RungeKutta approach curve and points
-scene.add(blackLineRungeKutta)
-scene.add(pointsRungeKutta)
+scene.add(blackLineHeun)
+scene.add(pointsHeun)
 
 function animate() {
     canvasWidth = container.offsetWidth;
