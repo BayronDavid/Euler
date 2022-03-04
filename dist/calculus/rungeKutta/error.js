@@ -56,7 +56,7 @@ function calculateError() {
 
     let rungeKutta = calculateRungeKuttaApproach(x0_, xf_, y0_, h_, false);
     let exact = calculateExactSolution(h_, x0_, y0_, xf_, inputs.exactFxy.value, false);
-    let e, eR;
+    let e, eR, aux;
 
     for (let i = 0; i <= xf_ - x0_ - h_; i += h_) {
         hilera = document.createElement("tr");
@@ -74,7 +74,7 @@ function calculateError() {
         celdaEuler.appendChild(textoceldaEuler);
 
         e = Math.abs(((rungeKutta[pos].y) - (exact[pos].y)));
-        error.push(new THREE.Vector3(i*10, e*1000, 0));
+        error.push(new THREE.Vector3(i*10, e*100, 0));
 
         eR = Math.abs(((rungeKutta[pos].y) - (exact[pos].y)) / Math.abs(exact[pos].y));
         relativeError.push(new THREE.Vector3(i*10, eR*1000, 0));
@@ -92,10 +92,13 @@ function calculateError() {
         tBody.appendChild(hilera);
         table.appendChild(tBody);
 
+        aux = ((exact[pos].y) - (rungeKutta[pos].y))*10000;
+        auxr.push(new THREE.Vector3(i * 10, aux , 0))
+
         pos++;
     }
     geometryRelativeError.setFromPoints(relativeError);
-    geometryError.setFromPoints(e);
+    geometryError.setFromPoints(auxr);
     containerTable.appendChild(table)
 
 }
