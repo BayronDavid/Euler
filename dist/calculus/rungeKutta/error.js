@@ -74,7 +74,7 @@ function calculateError() {
         celdaEuler.appendChild(textoceldaEuler);
 
         e = Math.abs(((rungeKutta[pos].y) - (exact[pos].y)));
-        error.push(new THREE.Vector3(i*10, e*1000, 0));
+        error.push(new THREE.Vector3(i*10, e*10, 0));
 
         eR = Math.abs(((rungeKutta[pos].y) - (exact[pos].y)) / Math.abs(exact[pos].y));
         relativeError.push(new THREE.Vector3(i*10, eR*1000, 0));
@@ -95,7 +95,7 @@ function calculateError() {
         pos++;
     }
     geometryRelativeError.setFromPoints(relativeError);
-    geometryError.setFromPoints(e);
+    geometryError.setFromPoints(error);
     containerTable.appendChild(table)
 
 }

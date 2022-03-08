@@ -72,10 +72,10 @@ function calculateError(){
         
         
         e = Math.abs(((euler[pos].y) - (exact[pos].y)));
-        error.push(new THREE.Vector3(i*10 ,e , 0));
+        error.push(new THREE.Vector3(i*10 ,e*10 , 0));
 
         eR = Math.abs(((euler[pos].y) - (exact[pos].y)) / Math.abs(exact[pos].y));
-        relativeError.push(new THREE.Vector3(i*10 ,eR*10 , 0));
+        relativeError.push(new THREE.Vector3(i*10 ,eR*100 , 0));
 
                
         var celdaEr = document.createElement("td");
