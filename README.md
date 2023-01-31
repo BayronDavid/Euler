@@ -1,7 +1,7 @@
 # Práctica -solución Ecuaciones Diferenciales Ordinarias (EDO) con metodos numericos
 
 Aplicacíon web que permite visualizar y comparar en tiempo real el comportamiento de 2 curvas 
-correspondientes a las soluciones exacta y aproximacion por 3 metodos numericos; Euler, Runge kutta y Euler mejorado.
+correspondientes a las soluciones exacta y aproximacion por 3 metodos numericos; Euler, Runge kutta y Euler mejorado, de ecuaciones diferenciales ordinarias. 
 
 ![image](https://user-images.githubusercontent.com/93720978/215786413-c4c87d05-5ad5-430f-ab6e-d4028452bb6e.png)
 
